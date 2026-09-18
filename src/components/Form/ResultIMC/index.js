@@ -4,7 +4,7 @@ import styles from "../style";
 
 export default function ResultIMC(props) {
 
-    //Chamando API de compartilhamento
+    // React Native's Share API: hands the result to any app on the phone
     const onShare = async () => {
         const result = await Share.share({
             message: "Meu IMC hoje é " + props.ResultIMC
