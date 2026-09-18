@@ -15,10 +15,10 @@ import styles from "./style";
 export default function Form() {
 
     //Declaração de estados das constantes (states / obs: useState -> hooks)
-    const [height, setHeight] = useState(nul);
-    const [weight, setWeight] = useState(nul);
+    const [height, setHeight] = useState(null);
+    const [weight, setWeight] = useState(null);
     const [messageIMC, setMessageIMC] = useState("Preencha o peso e a altura");
-    const [IMC, setIMC] = useState(nul);
+    const [IMC, setIMC] = useState(null);
     const [textButton, setTextButton] = useState("Calcular");
     const [errorMessage, setErrorMessage] = useState(null);
     const [listIMC, setListIMC] = useState([]);
@@ -26,9 +26,9 @@ export default function Form() {
     //Função para calcular o IMC
     function IMCCalculator() {
         let heightFormat = height.replace(",", ".");
-        let totalIMC = setIMC((weight / (heightFormat * heightFormat)).toFixed(2));
+        let totalIMC = (weight / (heightFormat * heightFormat)).toFixed(2);
 
-        setListIMC(() => [...arr, { id: new Date().getTime(), IMC: totalIMC }])
+        setListIMC((list) => [...list, { id: new Date().getTime(), IMC: totalIMC }])
         setIMC(totalIMC)
     }
 
@@ -36,7 +36,7 @@ export default function Form() {
     function verificationIMC() {
         if (IMC == null) {
             Vibration.vibrate();  //API react 
-            setErrorMessage = ("Campo Obrigatório* ");
+            setErrorMessage("Campo Obrigatório* ");
         }
     }
 
@@ -87,27 +87,27 @@ export default function Form() {
                             validationIMC()
                         }}
                     >
-                        <Text style={styles.textButtonCalculator}></Text>
+                        <Text style={styles.textButtonCalculator}>{textButton}</Text>
                     </TouchableOpacity>
 
                 </Pressable>
                 :
                 <View style={styles.exhibitionResultIMC}>
-                    <ResultIMC messageResultIMC={messageResultIMC} ResultIMC={IMC} />
+                    <ResultIMC messageResultIMC={messageIMC} ResultIMC={IMC} />
                     <TouchableOpacity
                         style={styles.ButtonCalculator}
                         onPress={() => {
                             validationIMC()
                         }}
                     >
-                        <Text style={styles.textButtonCalculator}></Text>
+                        <Text style={styles.textButtonCalculator}>{textButton}</Text>
                     </TouchableOpacity>
                 </View>
             }
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={styles.listIMCs}
-                data={listIMC.reverse()}
+                data={[...listIMC].reverse()}
                 renderItem={({ item }) => {
                     return (
                         <Text style={styles.ResultIMCItem}>
@@ -115,9 +115,7 @@ export default function Form() {
                         </Text>
                     )
                 }}
-                keyExtractor={(item) => {
-                    item.id
-                }}
+                keyExtractor={(item) => String(item.id)}
             >
 
             </FlatList>

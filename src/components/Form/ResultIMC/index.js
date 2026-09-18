@@ -14,8 +14,8 @@ export default function ResultIMC(props) {
     return (
         <View style={styles.contextIMC}>
             <View style={styles.boxShareButton}>
-                <Text style={styles.information}>props.messageResultIMC</Text>
-                <Text style={styles.ResultIMC}>props.ResultIMC</Text>
+                <Text style={styles.information}>{props.messageResultIMC}</Text>
+                <Text style={styles.ResultIMC}>{props.ResultIMC}</Text>
                 <TouchableOpacity
                     onPress={onShare}
                     style={styles.shared}>
