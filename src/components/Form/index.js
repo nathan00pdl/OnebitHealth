@@ -14,7 +14,6 @@ import styles from "./style";
 
 export default function Form() {
 
-    //Declaração de estados das constantes (states / obs: useState -> hooks)
     const [height, setHeight] = useState(null);
     const [weight, setWeight] = useState(null);
     const [messageIMC, setMessageIMC] = useState("Preencha o peso e a altura");
@@ -23,7 +22,6 @@ export default function Form() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [listIMC, setListIMC] = useState([]);
 
-    //Função para calcular o IMC
     function IMCCalculator() {
         let heightFormat = height.replace(",", ".");
         let totalIMC = (weight / (heightFormat * heightFormat)).toFixed(2);
@@ -32,15 +30,13 @@ export default function Form() {
         setIMC(totalIMC)
     }
 
-    //Função para verificar se o IMC está nulo 
     function verificationIMC() {
         if (IMC == null) {
-            Vibration.vibrate();  //API react 
+            Vibration.vibrate();  // React Native's Vibration API
             setErrorMessage("Campo Obrigatório* ");
         }
     }
 
-    //Validação de dados para o cálculo do IMC
     function validationIMC() {
         if (weight != null && height != null) {
             IMCCalculator()
